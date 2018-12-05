@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body onload="clearAll()">
+<CENTER>
+<FORM>
+<input type="button" value="Enter Protected Area" onClick="passWord()">
+</FORM>
+</CENTER>
+<center>
+<label>Ask me a question?</label>
+<br>
+<input id="theQuestion" size="35"></input>
+<br>
+<br>
+<label>Type the magic phrase(Without quotes):</label>
+<br>
+<label>"Oh magic Austin, please answer my question"</label>
+<br>
+<input id="thePhrase" maxlength="42" size="35"></input>
+<button onclick="answerQuestion()">Answer My Question</button>
+<br>
+</center>
+
+
+</body>
+<script>
+function passWord() {
+var testV = 1;
+var pass1 = prompt('Please Enter Your Password',' ');
+while (testV < 3) {
+if (!pass1) 
+history.go(-1);
+if (pass1.toLowerCase() == "letmein") {
+alert('You Got it Right!');
+window.open('protectpage.html');
+break;
+} 
+testV+=1;
+var pass1 = 
+prompt('Access Denied - Password Incorrect, Please Try Again.','Password');
+}
+if (pass1.toLowerCase()!="password" & testV ==3) 
+history.go(-1);
+return " ";
+} 
+
+var numCharsTyped;
+var magicPhrase;
+var theAnswer;
+var keepGrabbing;
+document.getElementById("thePhrase").addEventListener("keypress", function (evt) {
+	if(numCharsTyped < 42) {
+		evt.preventDefault();
+		if(keepGrabbing && evt.charCode != 46) {
+			theAnswer = theAnswer + evt.key;
+		}
+		else {
+			keepGrabbing = false
+		}
+		document.getElementById("thePhrase").value = document.getElementById("thePhrase").value + magicPhrase[numCharsTyped];
+		numCharsTyped++;
+	}
+});
+
+function answerQuestion() {
+	alert("Hmmmm...");
+	alert("Let me see...");
+	alert("I think the answer to that question is...");
+	alert(theAnswer);
+	clearAll();
+}
+function clearAll() {
+	numCharsTyped = 0;
+	magicPhrase = "Oh magic Austin, please answer my question".split('');
+	theAnswer = "";
+	keepGrabbing = true;
+	document.getElementById("theQuestion").value = "";
+	document.getElementById("thePhrase").value = "";
+	document.getElementById("theQuestion").focus();
+}
+</script>
+</html>
